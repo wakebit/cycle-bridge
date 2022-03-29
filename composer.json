@@ -25,10 +25,14 @@
         "symfony/console": "^4.3|^5.0|^6.0"
     },
     "require-dev": {
+        "cache/filesystem-adapter": "^1.2",
         "friendsofphp/php-cs-fixer": "^3.4",
+        "league/flysystem": "^1.0",
+        "php-di/php-di": "^6.3",
         "phpunit/phpunit": "^8.5 || ^9.5",
         "psalm/plugin-phpunit": "^0.16.1",
-        "vimeo/psalm": "^4.19"
+        "vimeo/psalm": "^4.19",
+        "voku/arrayy": "^7.9"
     },
     "config": {
         "sort-packages": true,
