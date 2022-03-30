@@ -70,7 +70,7 @@ final class TableCommandTest extends TestCase
             'Columns of default.sample',
             'Column:', 'Database Type:', 'Abstract Type:', 'PHP Type:', 'Default Value:',
 
-            'primary_id', 'int', 'integer', 'int', '---',
+            'primary_id', 'int', /* 'integer', */ 'int', '---', // integer was before, primary is now
             'primary1_id', 'int', 'integer', 'int', '---',
             'some_int', 'int', 'integer', 'int', '---',
 
