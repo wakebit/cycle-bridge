@@ -25,7 +25,7 @@
         "symfony/console": "^4.3|^5.0|^6.0"
     },
     "require-dev": {
-        "cache/filesystem-adapter": "^1.2",
+        "cache/filesystem-adapter": "^1.1",
         "friendsofphp/php-cs-fixer": "^3.4",
         "league/flysystem": "^1.0",
         "php-di/php-di": "^6.3",
