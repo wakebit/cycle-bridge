@@ -35,7 +35,7 @@ use function DI\get;
 
 return [
     'config'                          => require 'config.php',
-    'cycle'                           => require __DIR__ . '/cycle.php',
+    'cycle'                           => require 'cycle.php',
 
     DatabaseConfig::class             => static function (ContainerInterface $container): DatabaseConfig {
         return $container->get('cycle')['database'];
