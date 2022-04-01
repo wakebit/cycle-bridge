@@ -1,5 +1,6 @@
 # Cycle ORM bridge
 This package provides a set of Symfony commands, classes for integration [Cycle ORM v1](https://cycle-orm.dev) with any framework.
+If you want to integrate this to Laravel we already has a [separated package](https://github.com/wakebit/laravel-cycle) which uses this bridge.
 
 ## Requirements
 * PHP >= 7.2
