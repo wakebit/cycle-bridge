@@ -3,7 +3,7 @@ This package provides a set of Symfony commands, classes for integration [Cycle 
 If you want to integrate this to Laravel we already has a [separated package](https://github.com/wakebit/laravel-cycle) which uses this bridge.
 
 ## Requirements
-* PHP >= 7.2
+* PHP >= 8.0
 * Cycle ORM 1.x
 
 ## Installation
