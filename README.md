@@ -335,96 +335,27 @@ See more on [the official Cycle ORM documentation](https://cycle-orm.dev/docs/re
 
 ## Console commands
 ### Working with ORM schema
-- Generate ORM schema migrations:
-    ```
-  Wakebit\CycleBridge\Console\Command\Schema\MigrateCommand
-    ```
-    ```bash
-    cycle:schema:migrate
-    ```
-  Options:
-    - `--run`: Automatically run generated migration.
-    - `-v`: Verbose output.
-- Compile and cache ORM schema:
-    ```
-  Wakebit\CycleBridge\Console\Command\Schema\CacheCommand
-    ```
-    ```bash
-    cycle:schema:cache
-    ```
-- Clear cached schema (schema will be generated every request now):
-    ```
-  Wakebit\CycleBridge\Console\Command\Schema\ClearCommand
-    ```
-    ```bash
-    cycle:schema:clear
-    ```
-- Sync ORM schema with database without intermediate migration (risk operation!):
-    ```
-  Wakebit\CycleBridge\Console\Command\Schema\SyncCommand
-    ```
-    ```bash
-    cycle:schema:sync
-    ```
+| Command                | Description                                                                    | Options                                                                      | Symfony command class FQN                                           |
+|------------------------|--------------------------------------------------------------------------------|:-----------------------------------------------------------------------------|---------------------------------------------------------------------|
+| `cycle:schema:migrate` | Generate ORM schema migrations                                                 | - `--run`: Automatically run generated migration.<br>- `-v`: Verbose output. | `\Wakebit\CycleBridge\Console\Command\Schema\MigrateCommand::class` |
+| `cycle:schema:cache`   | Compile and cache ORM schema                                                   |                                                                              | `\Wakebit\CycleBridge\Console\Command\Schema\CacheCommand::class`   |
+| `cycle:schema:clear`   | Clear cached schema (schema will be generated every request now)               |                                                                              | `\Wakebit\CycleBridge\Console\Command\Schema\ClearCommand::class`   |
+| `cycle:schema:sync`    | Sync ORM schema with database without intermediate migration (risk operation!) |                                                                              | `\Wakebit\CycleBridge\Console\Command\Schema\SyncCommand::class`    |
+
 
 ### Database migrations
-- Initialize migrator. This command creates a table for migrations:
-    ```
-  Wakebit\CycleBridge\Console\Command\Migrate\InitCommand
-    ```
-    ```bash
-    cycle:migrate:init
-    ```
-- Run all outstanding migrations:
-    ```
-  Wakebit\CycleBridge\Console\Command\Migrate\MigrateCommand
-    ```
-    ```bash
-    cycle:migrate
-    ```
-  Options:
-    - `--one`: Execute only one (first) migration.
-    - `--force`: Force the operation to run when in production.
-- Rollback the last migration:
-    ```
-  Wakebit\CycleBridge\Console\Command\Migrate\RollbackCommand
-    ```
-    ```bash
-    cycle:migrate:rollback
-    ```
-  Options:
-    - `--all`: Rollback all executed migrations.
-    - `--force`: Force the operation to run when in production.
-- Get a list of available migrations:
-    ```
-  Wakebit\CycleBridge\Console\Command\Migrate\StatusCommand
-    ```
-    ```bash
-    cycle:migrate:status
-    ```
+| Command                  | Description                                        | Options                                                                                                       | Symfony command class FQN                                             |
+|--------------------------|----------------------------------------------------|:--------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| `cycle:migrate:init`     | Initialize migrator: create a table for migrations |                                                                                                               | `\Wakebit\CycleBridge\Console\Command\Migrate\InitCommand::class`     |
+| `cycle:migrate`          | Run all outstanding migrations                     | - `--one`: Execute only one (first) migration.<br>- `--force`: Force the operation to run when in production. | `\Wakebit\CycleBridge\Console\Command\Migrate\MigrateCommand::class`  |
+| `cycle:migrate:rollback` | Rollback the last migration                        | - `--all`: Rollback all executed migrations.<br>- `--force`: Force the operation to run when in production.   | `\Wakebit\CycleBridge\Console\Command\Migrate\RollbackCommand::class` |
+| `cycle:migrate:status`   | Get a list of available migrations                 |                                                                                                               | `\Wakebit\CycleBridge\Console\Command\Migrate\StatusCommand::class`   |
 
 ### Database commands
-- Get list of available databases, their tables and records count:
-    ```
-  Wakebit\CycleBridge\Console\Command\Database\ListCommand
-    ```
-    ```bash
-    cycle:db:list
-    ```
-  Options:
-    - `--database`: Database name.
-- Describe table schema of specific database:
-    ```
-  Wakebit\CycleBridge\Console\Command\Database\TableCommand
-    ```
-    ```bash
-    cycle:db:table <table>
-    ```
-  Arguments:
-    - `table`: Table name.
-
-  Options:
-    - `--database`: Database name.
+| Command                  | Description                                                     | Options                       | Symfony command class FQN                                           |
+|--------------------------|-----------------------------------------------------------------|:------------------------------|---------------------------------------------------------------------|
+| `cycle:db:list`          | Get list of available databases, their tables and records count | - `--database`: Database name | `\Wakebit\CycleBridge\Console\Command\Database\ListCommand::class`  |
+| `cycle:db:table <table>` | Describe table schema of specific database                      | - `--database`: Database name | `\Wakebit\CycleBridge\Console\Command\Database\TableCommand::class` |
 
 ## Writing functional tests
 If you are using memory database (SQLite) you can just run migrations in the `setUp` method of the your test calling the console command `cycle:migrate`.
