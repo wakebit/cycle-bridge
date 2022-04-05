@@ -13,11 +13,11 @@ namespace Wakebit\CycleBridge\Console\Command\Schema\Generator;
 
 use Cycle\Schema\GeneratorInterface;
 use Cycle\Schema\Registry;
-use Spiral\Database\Schema\AbstractColumn;
-use Spiral\Database\Schema\AbstractForeignKey;
-use Spiral\Database\Schema\AbstractIndex;
-use Spiral\Database\Schema\AbstractTable;
-use Spiral\Database\Schema\ComparatorInterface;
+use Cycle\Database\Schema\AbstractColumn;
+use Cycle\Database\Schema\AbstractForeignKey;
+use Cycle\Database\Schema\AbstractIndex;
+use Cycle\Database\Schema\AbstractTable;
+use Cycle\Database\Schema\ComparatorInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
 final class ShowChanges implements GeneratorInterface

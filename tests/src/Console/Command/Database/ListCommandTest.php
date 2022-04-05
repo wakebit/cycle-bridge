@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Tests\Console\Command\Database;
 
-use Spiral\Database\Database;
-use Spiral\Database\DatabaseInterface;
-use Spiral\Database\DatabaseManager;
-use Spiral\Database\DatabaseProviderInterface;
+use Cycle\Database\Database;
+use Cycle\Database\DatabaseInterface;
+use Cycle\Database\DatabaseManager;
+use Cycle\Database\DatabaseProviderInterface;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Database\ListCommand;

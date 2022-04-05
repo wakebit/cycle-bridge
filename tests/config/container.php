@@ -10,10 +10,10 @@ use Cycle\ORM\SchemaInterface;
 use Cycle\ORM\Transaction;
 use Cycle\ORM\TransactionInterface;
 use Psr\Container\ContainerInterface;
-use Spiral\Database\Config\DatabaseConfig;
-use Spiral\Database\DatabaseInterface;
-use Spiral\Database\DatabaseManager;
-use Spiral\Database\DatabaseProviderInterface;
+use Cycle\Database\Config\DatabaseConfig;
+use Cycle\Database\DatabaseInterface;
+use Cycle\Database\DatabaseManager;
+use Cycle\Database\DatabaseProviderInterface;
 use Spiral\Migrations\Config\MigrationConfig;
 use Spiral\Migrations\FileRepository;
 use Spiral\Migrations\RepositoryInterface;
@@ -35,6 +35,7 @@ use function DI\get;
 
 /**
  * @psalm-suppress MissingFile
+ * @psalm-suppress MixedArrayAccess
  * @psalm-suppress MixedInferredReturnType
  * @psalm-suppress MixedReturnStatement
  * @psalm-suppress UndefinedClass

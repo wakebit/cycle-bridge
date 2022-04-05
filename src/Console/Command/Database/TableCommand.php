@@ -10,16 +10,16 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Console\Command\Database;
 
-use Spiral\Database\DatabaseInterface;
-use Spiral\Database\DatabaseProviderInterface;
-use Spiral\Database\Driver\DriverInterface;
-use Spiral\Database\Exception\DBALException;
-use Spiral\Database\Injection\FragmentInterface;
-use Spiral\Database\Query\QueryParameters;
-use Spiral\Database\Schema\AbstractColumn;
-use Spiral\Database\Schema\AbstractForeignKey;
-use Spiral\Database\Schema\AbstractIndex;
-use Spiral\Database\Schema\AbstractTable;
+use Cycle\Database\DatabaseInterface;
+use Cycle\Database\DatabaseProviderInterface;
+use Cycle\Database\Driver\DriverInterface;
+use Cycle\Database\Exception\DBALException;
+use Cycle\Database\Injection\FragmentInterface;
+use Cycle\Database\Query\QueryParameters;
+use Cycle\Database\Schema\AbstractColumn;
+use Cycle\Database\Schema\AbstractForeignKey;
+use Cycle\Database\Schema\AbstractIndex;
+use Cycle\Database\Schema\AbstractTable;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputArgument;
@@ -69,7 +69,7 @@ final class TableCommand extends Command
         /** @var non-empty-string */
         $this->tableName = $this->input->getArgument('table');
 
-        /** @var \Spiral\Database\Table $table */
+        /** @var \Cycle\Database\Table $table */
         $table = $database->table($this->tableName);
         $schema = $table->getSchema();
 

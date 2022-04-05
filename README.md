@@ -38,8 +38,8 @@ return [
 ```php
 <?php
 
+use Cycle\Database\Config\DatabaseConfig;
 use Psr\Container\ContainerInterface;
-use Spiral\Database\Config\DatabaseConfig;
 use Spiral\Migrations\Config\MigrationConfig;
 use Spiral\Tokenizer\Config\TokenizerConfig;
 use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
@@ -61,50 +61,44 @@ return [
             ],
 
             'connections' => [
-                'sqlite' => [
-                    'driver'  => \Spiral\Database\Driver\SQLite\SQLiteDriver::class,
-                    'options' => [
-                        'connection' => 'sqlite::memory:',
-                        'username'   => '',
-                        'password'   => '',
-                    ],
-                ],
-                'mysql' => [
-                    'driver'  => \Spiral\Database\Driver\MySQL\MySQLDriver::class,
-                    'options' => [
-                        'connection' => sprintf(
-                            'mysql:host=%s;dbname=%s',
-                            $container->get('config')['db.host'],
-                            $container->get('config')['db.database']
-                        ),
-                        'username'   => $container->get('config')['db.username'],
-                        'password'   => $container->get('config')['db.password'],
-                    ],
-                ],
-                'postgres'  => [
-                    'driver'  => \Spiral\Database\Driver\Postgres\PostgresDriver::class,
-                    'options' => [
-                        'connection' => sprintf(
-                            'pgsql:host=%s;dbname=%s',
-                            $container->get('config')['db.host'],
-                            $container->get('config')['db.database']
-                        ),
-                        'username'   => $container->get('config')['db.username'],
-                        'password'   => $container->get('config')['db.password'],
-                    ],
-                ],
-                'sqlServer' => [
-                    'driver'  => \Spiral\Database\Driver\SQLServer\SQLServerDriver::class,
-                    'options' => [
-                        'connection' => sprintf(
-                            'sqlsrv:Server=%s;Database=%s',
-                            $container->get('config')['db.host'],
-                            $container->get('config')['db.database']
-                        ),
-                        'username'   => $container->get('config')['db.username'],
-                        'password'   => $container->get('config')['db.password'],
-                    ],
-                ],
+                'sqlite' => new \Cycle\Database\Config\SQLiteDriverConfig(
+                    connection: new \Cycle\Database\Config\SQLite\MemoryConnectionConfig(),
+                    queryCache: true,
+                ),
+
+                'mysql' => new \Cycle\Database\Config\MySQLDriverConfig(
+                    connection: new \Cycle\Database\Config\MySQL\TcpConnectionConfig(
+                        database: $container->get('config')['db.database'],
+                        host: $container->get('config')['db.host'],
+                        port: 3306,
+                        user: $container->get('config')['db.username'],
+                        password: $container->get('config')['db.password'],
+                    ),
+                    queryCache: true,
+                ),
+
+                'postgres' => new \Cycle\Database\Config\PostgresDriverConfig(
+                    connection: new \Cycle\Database\Config\Postgres\TcpConnectionConfig(
+                        database: $container->get('config')['db.database'],
+                        host: $container->get('config')['db.host'],
+                        port: 5432,
+                        user: $container->get('config')['db.username'],
+                        password: $container->get('config')['db.password'],
+                    ),
+                    schema: 'public',
+                    queryCache: true,
+                ),
+
+                'sqlServer' => new \Cycle\Database\Config\SQLServerDriverConfig(
+                    connection: new \Cycle\Database\Config\SQLServer\TcpConnectionConfig(
+                        database: $container->get('config')['db.database'],
+                        host: $container->get('config')['db.host'],
+                        port: 1433,
+                        user: $container->get('config')['db.username'],
+                        password: $container->get('config')['db.password'],
+                    ),
+                    queryCache: true,
+                ),
             ],
         ]);
     },
@@ -142,6 +136,10 @@ return [
 
 declare(strict_types=1);
 
+use Cycle\Database\Config\DatabaseConfig;
+use Cycle\Database\DatabaseInterface;
+use Cycle\Database\DatabaseManager;
+use Cycle\Database\DatabaseProviderInterface;
 use Cycle\ORM\Factory;
 use Cycle\ORM\FactoryInterface;
 use Cycle\ORM\ORM;
@@ -150,10 +148,6 @@ use Cycle\ORM\SchemaInterface;
 use Cycle\ORM\Transaction;
 use Cycle\ORM\TransactionInterface;
 use Psr\Container\ContainerInterface;
-use Spiral\Database\Config\DatabaseConfig;
-use Spiral\Database\DatabaseInterface;
-use Spiral\Database\DatabaseManager;
-use Spiral\Database\DatabaseProviderInterface;
 use Spiral\Migrations\Config\MigrationConfig;
 use Spiral\Migrations\FileRepository;
 use Spiral\Migrations\RepositoryInterface;
@@ -280,9 +274,9 @@ declare(strict_types=1);
 
 namespace App;
 
+use Cycle\Database\DatabaseProviderInterface;
 use Cycle\ORM\ORMInterface;
 use Cycle\ORM\TransactionInterface;
-use Spiral\Database\DatabaseProviderInterface;
 
 class SomeClass
 {
@@ -309,7 +303,7 @@ class SomeClass
     {
         // DBAL
         $tables = $this->dbal->database()->getTables();
-        $tableNames = array_map(function (\Spiral\Database\TableInterface $table): string {
+        $tableNames = array_map(function (\Cycle\Database\TableInterface $table): string {
             return $table->getName();
         }, $tables);
 

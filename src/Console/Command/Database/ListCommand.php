@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Console\Command\Database;
 
-use Spiral\Database\Config\DatabaseConfig;
-use Spiral\Database\DatabaseInterface;
-use Spiral\Database\DatabaseProviderInterface;
-use Spiral\Database\Driver\Driver;
+use Cycle\Database\Config\DatabaseConfig;
+use Cycle\Database\DatabaseInterface;
+use Cycle\Database\DatabaseProviderInterface;
+use Cycle\Database\Driver\Driver;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Helper\TableSeparator;

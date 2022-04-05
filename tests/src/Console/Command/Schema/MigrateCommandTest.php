@@ -6,7 +6,7 @@ namespace Wakebit\CycleBridge\Tests\Console\Command\Schema;
 
 use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
-use Spiral\Database\DatabaseInterface;
+use Cycle\Database\DatabaseInterface;
 use Spiral\Migrations\Config\MigrationConfig;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;

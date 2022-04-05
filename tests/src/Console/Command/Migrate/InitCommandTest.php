@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Tests\Console\Command\Migrate;
 
-use Spiral\Database\DatabaseManager;
+use Cycle\Database\DatabaseManager;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Migrate\InitCommand;
