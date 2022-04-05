@@ -34,18 +34,21 @@ final class GeneratorQueueTest extends TestCase
 
         $this->assertBaseGenerators($this->generatorQueue->getGenerators());
 
-        $this->assertCount(11, $generators);
+        $this->assertCount(14, $generators);
         $this->assertInstanceOf(\Cycle\Annotated\Embeddings::class, $generators[0]);
         $this->assertInstanceOf(\Cycle\Annotated\Entities::class, $generators[1]);
-        $this->assertInstanceOf(\Cycle\Annotated\MergeColumns::class, $generators[2]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\ResetTables::class, $generators[3]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateRelations::class, $generators[4]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\ValidateEntities::class, $generators[5]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderTables::class, $generators[6]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderRelations::class, $generators[7]);
-        $this->assertInstanceOf(\Cycle\Annotated\MergeIndexes::class, $generators[8]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\SyncTables::class, $generators[9]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateTypecast::class, $generators[10]);
+        $this->assertInstanceOf(\Cycle\Annotated\TableInheritance::class, $generators[2]);
+        $this->assertInstanceOf(\Cycle\Annotated\MergeColumns::class, $generators[3]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\ResetTables::class, $generators[4]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateRelations::class, $generators[5]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateModifiers::class, $generators[6]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\ValidateEntities::class, $generators[7]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderTables::class, $generators[8]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderRelations::class, $generators[9]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderModifiers::class, $generators[10]);
+        $this->assertInstanceOf(\Cycle\Annotated\MergeIndexes::class, $generators[11]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\SyncTables::class, $generators[12]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateTypecast::class, $generators[13]);
     }
 
     public function testRemoveGenerator(): void
@@ -53,19 +56,22 @@ final class GeneratorQueueTest extends TestCase
         $generators = $this->generatorQueue
             ->removeGenerator(\Cycle\Annotated\Embeddings::class)
             ->removeGenerator(\Cycle\Annotated\Entities::class)
+            ->removeGenerator(\Cycle\Annotated\TableInheritance::class)
             ->removeGenerator(\Cycle\Annotated\MergeColumns::class)
             ->removeGenerator(\Cycle\Annotated\MergeIndexes::class)
             ->getGenerators();
 
         $this->assertBaseGenerators($this->generatorQueue->getGenerators());
 
-        $this->assertCount(6, $generators);
+        $this->assertCount(8, $generators);
         $this->assertInstanceOf(\Cycle\Schema\Generator\ResetTables::class, $generators[0]);
         $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateRelations::class, $generators[1]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\ValidateEntities::class, $generators[2]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderTables::class, $generators[3]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderRelations::class, $generators[4]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateTypecast::class, $generators[5]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateModifiers::class, $generators[2]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\ValidateEntities::class, $generators[3]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderTables::class, $generators[4]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderRelations::class, $generators[5]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderModifiers::class, $generators[6]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateTypecast::class, $generators[7]);
     }
 
     public function testWithoutGenerators(): void
@@ -83,16 +89,19 @@ final class GeneratorQueueTest extends TestCase
      */
     private function assertBaseGenerators(array $generators): void
     {
-        $this->assertCount(10, $generators);
+        $this->assertCount(13, $generators);
         $this->assertInstanceOf(\Cycle\Annotated\Embeddings::class, $generators[0]);
         $this->assertInstanceOf(\Cycle\Annotated\Entities::class, $generators[1]);
-        $this->assertInstanceOf(\Cycle\Annotated\MergeColumns::class, $generators[2]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\ResetTables::class, $generators[3]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateRelations::class, $generators[4]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\ValidateEntities::class, $generators[5]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderTables::class, $generators[6]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderRelations::class, $generators[7]);
-        $this->assertInstanceOf(\Cycle\Annotated\MergeIndexes::class, $generators[8]);
-        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateTypecast::class, $generators[9]);
+        $this->assertInstanceOf(\Cycle\Annotated\TableInheritance::class, $generators[2]);
+        $this->assertInstanceOf(\Cycle\Annotated\MergeColumns::class, $generators[3]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\ResetTables::class, $generators[4]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateRelations::class, $generators[5]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateModifiers::class, $generators[6]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\ValidateEntities::class, $generators[7]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderTables::class, $generators[8]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderRelations::class, $generators[9]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\RenderModifiers::class, $generators[10]);
+        $this->assertInstanceOf(\Cycle\Annotated\MergeIndexes::class, $generators[11]);
+        $this->assertInstanceOf(\Cycle\Schema\Generator\GenerateTypecast::class, $generators[12]);
     }
 }
