@@ -14,11 +14,11 @@ interface GeneratorQueueInterface
 
     /**
      * @param self::GROUP_*                                       $group
-     * @param GeneratorInterface|class-string<GeneratorInterface> $generator
+     * @param class-string<GeneratorInterface>|GeneratorInterface $generator
      *
      * @return $this
      */
-    public function addGenerator(string $group, $generator): self;
+    public function addGenerator(string $group, GeneratorInterface|string $generator): self;
 
     /**
      * @param class-string<GeneratorInterface> $removableGenerator

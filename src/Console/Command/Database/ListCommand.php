@@ -23,24 +23,14 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class ListCommand extends Command
 {
-    /** @var string */
-    private $name = 'cycle:db:list';
+    private string $name = 'cycle:db:list';
+    private string $description = 'Get list of available databases, their tables and records count';
 
-    /** @var string */
-    private $description = 'Get list of available databases, their tables and records count';
-
-    /** @var DatabaseConfig */
-    private $databaseConfig;
-
-    /** @var DatabaseProviderInterface */
-    private $dbal;
-
-    public function __construct(DatabaseConfig $databaseConfig, DatabaseProviderInterface $dbal)
-    {
+    public function __construct(
+        private DatabaseConfig $databaseConfig,
+        private DatabaseProviderInterface $dbal,
+    ) {
         parent::__construct();
-
-        $this->databaseConfig = $databaseConfig;
-        $this->dbal = $dbal;
     }
 
     protected function configure(): void

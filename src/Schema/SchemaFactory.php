@@ -13,28 +13,12 @@ use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
 
 final class SchemaFactory
 {
-    /** @var CacheManagerInterface */
-    private $cacheManager;
-
-    /** @var CompilerInterface */
-    private $compiler;
-
-    /** @var GeneratorQueueInterface */
-    private $generatorQueue;
-
-    /** @var SchemaConfig */
-    private $schemaConfig;
-
     public function __construct(
-        CacheManagerInterface $cacheManager,
-        CompilerInterface $compiler,
-        GeneratorQueueInterface $generatorQueue,
-        SchemaConfig $schemaConfig
+        private CacheManagerInterface $cacheManager,
+        private CompilerInterface $compiler,
+        private GeneratorQueueInterface $generatorQueue,
+        private SchemaConfig $schemaConfig
     ) {
-        $this->cacheManager = $cacheManager;
-        $this->compiler = $compiler;
-        $this->generatorQueue = $generatorQueue;
-        $this->schemaConfig = $schemaConfig;
     }
 
     public function create(): SchemaInterface

@@ -15,11 +15,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class InitCommand extends AbstractCommand
 {
-    /** @var string */
-    private $name = 'cycle:migrate:init';
-
-    /** @var string */
-    private $description = 'Init migrations component (create migrations table).';
+    private string $name = 'cycle:migrate:init';
+    private string $description = 'Init migrations component (create migrations table).';
 
     protected function configure(): void
     {

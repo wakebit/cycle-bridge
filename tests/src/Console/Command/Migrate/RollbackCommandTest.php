@@ -15,8 +15,7 @@ use Wakebit\CycleBridge\Tests\TestCase;
 
 final class RollbackCommandTest extends TestCase
 {
-    /** @var DatabaseInterface */
-    private $db;
+    private DatabaseInterface $db;
 
     protected function setUp(): void
     {

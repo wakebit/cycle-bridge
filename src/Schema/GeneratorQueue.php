@@ -11,20 +11,16 @@ use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
 
 final class GeneratorQueue implements GeneratorQueueInterface
 {
-    /** @var ContainerInterface */
-    private $container;
-
     /** @var array<array<GeneratorInterface|class-string<GeneratorInterface>>> */
-    private $generators;
+    private array $generators;
 
-    public function __construct(ContainerInterface $container, SchemaConfig $schemaConfig)
+    public function __construct(private ContainerInterface $container, SchemaConfig $schemaConfig)
     {
-        $this->container = $container;
         $this->generators = $schemaConfig->getGenerators();
     }
 
     /** {@inheritdoc} */
-    public function addGenerator(string $group, $generator): GeneratorQueueInterface
+    public function addGenerator(string $group, GeneratorInterface|string $generator): GeneratorQueueInterface
     {
         $queue = clone $this;
 
@@ -64,12 +60,10 @@ final class GeneratorQueue implements GeneratorQueueInterface
     }
 
     /**
-     * @param string|GeneratorInterface $generator
-     *
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    private function assemblyGenerator($generator): GeneratorInterface
+    private function assemblyGenerator(GeneratorInterface|string $generator): GeneratorInterface
     {
         if ($generator instanceof GeneratorInterface) {
             return $generator;

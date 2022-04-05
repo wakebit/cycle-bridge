@@ -10,18 +10,12 @@ use Wakebit\CycleBridge\Contracts\Schema\GeneratorQueueInterface;
 
 final class SchemaConfig extends InjectableConfig
 {
-    /**
-     * @return mixed|string
-     */
-    public function getCacheStore()
+    public function getCacheStore(): mixed
     {
         return $this->config['cache']['store'] ?? 'file';
     }
 
-    /**
-     * @return mixed|null
-     */
-    public function getManuallyDefinedSchema()
+    public function getManuallyDefinedSchema(): mixed
     {
         return $this->config['map'] ?? null;
     }

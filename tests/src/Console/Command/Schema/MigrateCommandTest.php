@@ -17,14 +17,11 @@ use Wakebit\CycleBridge\Tests\TestCase;
 
 final class MigrateCommandTest extends TestCase
 {
-    /** @var DatabaseInterface */
-    private $db;
-
-    /** @var \League\Flysystem\Filesystem */
-    private $files;
+    private DatabaseInterface $db;
+    private \League\Flysystem\Filesystem $files;
 
     /** @var array<string> */
-    private $migrationFiles;
+    private array $migrationFiles;
 
     protected function setUp(): void
     {
@@ -161,6 +158,8 @@ final class MigrateCommandTest extends TestCase
     {
         /** @var array<array<string>> $files */
         $files = $this->files->listContents('resources/migrations/');
+
+        /** @var array<string> $files */
         $files = array_column($files, 'path');
 
         $this->assertCount(4, $files);
@@ -190,10 +189,8 @@ class Tag
 {
     /**
      * @Column(type="primary")
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 }
 PHP;
 

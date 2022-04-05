@@ -14,31 +14,15 @@ use Wakebit\CycleBridge\Contracts\Schema\GeneratorQueueInterface;
 
 final class SyncCommand extends Command
 {
-    /** @var string */
-    private $name = 'cycle:schema:sync';
-
-    /** @var string */
-    private $description = 'Sync ORM schema with database without intermediate migration (risk operation).';
-
-    /** @var GeneratorQueueInterface */
-    private $generatorQueue;
-
-    /** @var CompilerInterface */
-    private $schemaCompiler;
-
-    /** @var SyncTables */
-    private $syncTables;
+    private string $name = 'cycle:schema:sync';
+    private string $description = 'Sync ORM schema with database without intermediate migration (risk operation).';
 
     public function __construct(
-        GeneratorQueueInterface $generatorQueue,
-        CompilerInterface $schemaCompiler,
-        SyncTables $syncTables
+        private GeneratorQueueInterface $generatorQueue,
+        private CompilerInterface $schemaCompiler,
+        private SyncTables $syncTables
     ) {
         parent::__construct();
-
-        $this->generatorQueue = $generatorQueue;
-        $this->schemaCompiler = $schemaCompiler;
-        $this->syncTables = $syncTables;
     }
 
     protected function configure(): void

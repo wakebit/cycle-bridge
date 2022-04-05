@@ -33,6 +33,12 @@ use function DI\autowire;
 use function DI\factory;
 use function DI\get;
 
+/**
+ * @psalm-suppress MissingFile
+ * @psalm-suppress MixedInferredReturnType
+ * @psalm-suppress MixedReturnStatement
+ * @psalm-suppress UndefinedClass
+ */
 return [
     'config'                          => require 'config.php',
     'cycle'                           => require 'cycle.php',

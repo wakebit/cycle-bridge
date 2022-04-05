@@ -10,8 +10,7 @@ use Wakebit\CycleBridge\Tests\TestCase;
 
 final class GeneratorQueueTest extends TestCase
 {
-    /** @var GeneratorQueueInterface */
-    private $generatorQueue;
+    private GeneratorQueueInterface $generatorQueue;
 
     protected function setUp(): void
     {

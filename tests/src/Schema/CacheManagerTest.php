@@ -9,8 +9,7 @@ use Wakebit\CycleBridge\Tests\TestCase;
 
 final class CacheManagerTest extends TestCase
 {
-    /** @var CacheManagerInterface */
-    private $schemaCacheManager;
+    private CacheManagerInterface $schemaCacheManager;
 
     protected function setUp(): void
     {

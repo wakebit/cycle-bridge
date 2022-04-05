@@ -15,17 +15,13 @@ final class SeeInOrder extends Constraint
 {
     /**
      * The string under validation.
-     *
-     * @var string
      */
-    protected $content;
+    protected string $content;
 
     /**
      * The last value that failed to pass validation.
-     *
-     * @var string
      */
-    protected $failedValue;
+    protected string $failedValue;
 
     public function __construct(string $content)
     {

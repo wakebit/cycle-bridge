@@ -13,8 +13,7 @@ use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
  */
 class TestCase extends \PHPUnit\Framework\TestCase
 {
-    /** @var \DI\Container */
-    protected $container;
+    protected \DI\Container $container;
 
     protected function setUp(): void
     {
@@ -33,8 +32,6 @@ class TestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
      * @throws \Psr\Container\ContainerExceptionInterface
@@ -43,7 +40,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
      * @psalm-suppress MixedArrayAccess
      * @psalm-suppress MixedArrayAssignment
      */
-    protected function setSchemaConfigValue(string $key, $value): void
+    protected function setSchemaConfigValue(string $key, mixed $value): void
     {
         /** @var array $cycleConfig */
         $cycleConfig = $this->container->get('cycle');
@@ -57,14 +54,12 @@ class TestCase extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @param mixed $value
-     *
      * @throws \DI\DependencyException
      * @throws \DI\NotFoundException
      * @throws \Psr\Container\ContainerExceptionInterface
      * @throws \Psr\Container\NotFoundExceptionInterface
      */
-    protected function setMigrationConfigValue(string $key, $value): void
+    protected function setMigrationConfigValue(string $key, mixed $value): void
     {
         /** @var array $cycleConfig */
         $cycleConfig = $this->container->get('cycle');

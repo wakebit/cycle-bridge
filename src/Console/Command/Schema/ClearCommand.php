@@ -11,20 +11,12 @@ use Wakebit\CycleBridge\Contracts\Schema\CacheManagerInterface;
 
 final class ClearCommand extends Command
 {
-    /** @var string */
-    private $name = 'cycle:schema:clear';
+    private string $name = 'cycle:schema:clear';
+    private string $description = 'Clear ORM schema cache.';
 
-    /** @var string */
-    private $description = 'Clear ORM schema cache.';
-
-    /** @var CacheManagerInterface */
-    private $cacheManager;
-
-    public function __construct(CacheManagerInterface $cacheManager)
+    public function __construct(private CacheManagerInterface $cacheManager)
     {
         parent::__construct();
-
-        $this->cacheManager = $cacheManager;
     }
 
     protected function configure(): void

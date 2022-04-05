@@ -9,20 +9,18 @@ use Cycle\Annotated\Annotation\Entity;
 
 /**
  * @Entity
+ *
+ * @psalm-suppress MissingConstructor
  */
 final class Customer
 {
     /**
      * @Column(type="primary")
-     *
-     * @var int
      */
-    private $id;
+    private int $id;
 
     /**
      * @Column(type="string")
-     *
-     * @var string
      */
-    private $name;
+    private string $name;
 }

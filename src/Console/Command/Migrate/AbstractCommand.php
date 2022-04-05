@@ -21,30 +21,15 @@ use Symfony\Component\Console\Style\OutputStyle;
 
 abstract class AbstractCommand extends Command
 {
-    /** @var Migrator */
-    protected $migrator;
+    /** @psalm-suppress PropertyNotSetInConstructor */
+    protected InputInterface $input;
 
-    /** @var MigrationConfig */
-    protected $config;
+    /** @psalm-suppress PropertyNotSetInConstructor */
+    protected OutputInterface $output;
 
-    /**
-     * @var InputInterface
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
-    protected $input;
-
-    /**
-     * @var OutputInterface
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
-    protected $output;
-
-    public function __construct(Migrator $migrator, MigrationConfig $config)
+    public function __construct(protected Migrator $migrator, protected MigrationConfig $migrationConfig)
     {
         parent::__construct();
-
-        $this->migrator = $migrator;
-        $this->config = $config;
     }
 
     public function run(InputInterface $input, OutputInterface $output): int
@@ -57,7 +42,7 @@ abstract class AbstractCommand extends Command
      */
     protected function verifyEnvironment(): bool
     {
-        if ($this->input->getOption('force') || $this->config->isSafe()) {
+        if ($this->input->getOption('force') || $this->migrationConfig->isSafe()) {
             // Safe to run
             return true;
         }
@@ -73,10 +58,7 @@ abstract class AbstractCommand extends Command
         return true;
     }
 
-    /**
-     * @return mixed
-     */
-    protected function askConfirmation()
+    protected function askConfirmation(): mixed
     {
         $question = '<question>Would you like to continue?</question> ';
 

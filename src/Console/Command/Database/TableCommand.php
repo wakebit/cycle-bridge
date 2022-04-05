@@ -27,42 +27,23 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
 
+/**
+ * @psalm-suppress PropertyNotSetInConstructor
+ */
 final class TableCommand extends Command
 {
     private const SKIP = '<comment>---</comment>';
 
-    /** @var string */
-    private $name = 'cycle:db:table';
+    private string $name = 'cycle:db:table';
+    private string $description = 'Describe table schema of specific database';
 
-    /** @var string */
-    private $description = 'Describe table schema of specific database';
+    private InputInterface $input;
+    private OutputInterface $output;
+    private string $tableName;
 
-    /** @var DatabaseProviderInterface */
-    private $dbal;
-
-    /**
-     * @var InputInterface
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
-    private $input;
-
-    /**
-     * @var OutputInterface
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
-    private $output;
-
-    /**
-     * @var string
-     * @psalm-suppress PropertyNotSetInConstructor
-     */
-    private $tableName;
-
-    public function __construct(DatabaseProviderInterface $dbal)
+    public function __construct(private DatabaseProviderInterface $dbal)
     {
         parent::__construct();
-
-        $this->dbal = $dbal;
     }
 
     public function run(InputInterface $input, OutputInterface $output): int
@@ -85,7 +66,7 @@ final class TableCommand extends Command
         $databaseOptionValue = $input->getOption('database');
         $database = $this->dbal->database($databaseOptionValue);
 
-        /** @var string */
+        /** @var non-empty-string */
         $this->tableName = $this->input->getArgument('table');
 
         /** @var \Spiral\Database\Table $table */
@@ -235,10 +216,7 @@ final class TableCommand extends Command
         $foreignTable->render();
     }
 
-    /**
-     * @return scalar|null
-     */
-    protected function describeDefaultValue(AbstractColumn $column, DriverInterface $driver)
+    protected function describeDefaultValue(AbstractColumn $column, DriverInterface $driver): float|\DateTimeInterface|bool|int|string|FragmentInterface|null
     {
         /** @var FragmentInterface|\DateTimeInterface|scalar|null $defaultValue */
         $defaultValue = $column->getDefaultValue();

@@ -10,15 +10,10 @@ use Wakebit\CycleBridge\Contracts\Schema\GeneratorQueueInterface;
 
 final class Compiler implements CompilerInterface
 {
-    /** @var Registry */
-    private $registry;
+    private \Cycle\Schema\Compiler $compiler;
 
-    /** @var \Cycle\Schema\Compiler */
-    private $compiler;
-
-    public function __construct(Registry $registry)
+    public function __construct(private Registry $registry)
     {
-        $this->registry = $registry;
         $this->compiler = new \Cycle\Schema\Compiler();
     }
 

@@ -11,12 +11,8 @@ final class CacheManager implements CacheManagerInterface
 {
     private const SCHEMA_CACHE_KEY = 'cycle.orm.schema';
 
-    /** @var CacheInterface */
-    private $cache;
-
-    public function __construct(CacheInterface $cache)
+    public function __construct(private CacheInterface $cache)
     {
-        $this->cache = $cache;
     }
 
     public function isCached(): bool

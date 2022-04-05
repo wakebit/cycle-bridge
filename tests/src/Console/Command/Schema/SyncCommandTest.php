@@ -15,14 +15,11 @@ use Wakebit\CycleBridge\Tests\TestCase;
 
 final class SyncCommandTest extends TestCase
 {
-    /** @var DatabaseInterface */
-    private $db;
-
-    /** @var \League\Flysystem\Filesystem */
-    private $files;
+    private DatabaseInterface $db;
+    private \League\Flysystem\Filesystem $files;
 
     /** @var array<string> */
-    private $migrationFiles;
+    private array $migrationFiles;
 
     protected function setUp(): void
     {
@@ -102,10 +99,8 @@ class Tag
 {
     /**
      * @Column(type="primary")
-     *
-     * @var int
      */
-    public $id;
+    public int $id;
 }
 PHP;
 

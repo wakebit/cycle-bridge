@@ -22,15 +22,10 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class ShowChanges implements GeneratorInterface
 {
-    /** @var OutputInterface */
-    private $output;
+    private array $changes = [];
 
-    /** @var array */
-    private $changes = [];
-
-    public function __construct(OutputInterface $output)
+    public function __construct(private OutputInterface $output)
     {
-        $this->output = $output;
     }
 
     public function run(Registry $registry): Registry

@@ -26,41 +26,17 @@ use Wakebit\CycleBridge\Contracts\Schema\GeneratorQueueInterface;
 
 final class MigrateCommand extends Command
 {
-    /** @var string */
-    private $name = 'cycle:schema:migrate';
-
-    /** @var string */
-    private $description = 'Generate ORM schema migrations.';
-
-    /** @var ContainerInterface */
-    private $container;
-
-    /** @var GenerateMigrations */
-    private $generateMigrations;
-
-    /** @var GeneratorQueueInterface */
-    private $generatorQueue;
-
-    /** @var Migrator */
-    private $migrator;
-
-    /** @var CompilerInterface */
-    private $schemaCompiler;
+    private string $name = 'cycle:schema:migrate';
+    private string $description = 'Generate ORM schema migrations.';
 
     public function __construct(
-        ContainerInterface $container,
-        GenerateMigrations $generateMigrations,
-        GeneratorQueueInterface $generatorQueue,
-        Migrator $migrator,
-        CompilerInterface $schemaCompiler
+        private ContainerInterface $container,
+        private GenerateMigrations $generateMigrations,
+        private GeneratorQueueInterface $generatorQueue,
+        private Migrator $migrator,
+        private CompilerInterface $schemaCompiler
     ) {
         parent::__construct();
-
-        $this->container = $container;
-        $this->generateMigrations = $generateMigrations;
-        $this->generatorQueue = $generatorQueue;
-        $this->migrator = $migrator;
-        $this->schemaCompiler = $schemaCompiler;
     }
 
     protected function configure(): void

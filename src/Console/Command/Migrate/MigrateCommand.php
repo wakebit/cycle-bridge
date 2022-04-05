@@ -16,11 +16,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class MigrateCommand extends AbstractCommand
 {
-    /** @var string */
-    private $name = 'cycle:migrate';
-
-    /** @var string */
-    private $description = 'Run all outstanding migrations.';
+    private string $name = 'cycle:migrate';
+    private string $description = 'Run all outstanding migrations.';
 
     protected function configure(): void
     {

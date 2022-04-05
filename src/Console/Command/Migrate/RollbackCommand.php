@@ -16,11 +16,8 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class RollbackCommand extends AbstractCommand
 {
-    /** @var string */
-    private $name = 'cycle:migrate:rollback';
-
-    /** @var string */
-    private $description = 'Rollback the last migration.';
+    private string $name = 'cycle:migrate:rollback';
+    private string $description = 'Rollback the last migration.';
 
     protected function configure(): void
     {

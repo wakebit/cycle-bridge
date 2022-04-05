@@ -14,8 +14,7 @@ use Wakebit\CycleBridge\Tests\TestCase;
 
 final class MigrateCommandTest extends TestCase
 {
-    /** @var DatabaseInterface */
-    private $db;
+    private DatabaseInterface $db;
 
     protected function setUp(): void
     {

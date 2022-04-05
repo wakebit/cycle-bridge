@@ -22,11 +22,8 @@ final class StatusCommand extends AbstractCommand
 {
     private const DATE_FORMAT = 'Y-m-d H:i:s';
 
-    /** @var string */
-    private $name = 'cycle:migrate:status';
-
-    /** @var string */
-    private $description = 'Get a list of available migrations.';
+    private string $name = 'cycle:migrate:status';
+    private string $description = 'Get a list of available migrations.';
 
     protected function configure(): void
     {

@@ -14,36 +14,16 @@ use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
 
 final class CacheCommand extends Command
 {
-    /** @var string */
-    private $name = 'cycle:schema:cache';
-
-    /** @var string */
-    private $description = 'Compile and cache ORM schema from database and annotated classes.';
-
-    /** @var GeneratorQueueInterface */
-    private $generatorQueue;
-
-    /** @var CacheManagerInterface */
-    private $cacheManager;
-
-    /** @var CompilerInterface */
-    private $schemaCompiler;
-
-    /** @var SchemaConfig */
-    private $schemaConfig;
+    private string $name = 'cycle:schema:cache';
+    private string $description = 'Compile and cache ORM schema from database and annotated classes.';
 
     public function __construct(
-        GeneratorQueueInterface $generatorQueue,
-        CacheManagerInterface $cacheManager,
-        CompilerInterface $schemaCompiler,
-        SchemaConfig $schemaConfig
+        private GeneratorQueueInterface $generatorQueue,
+        private CacheManagerInterface $cacheManager,
+        private CompilerInterface $schemaCompiler,
+        private SchemaConfig $schemaConfig
     ) {
         parent::__construct();
-
-        $this->generatorQueue = $generatorQueue;
-        $this->cacheManager = $cacheManager;
-        $this->schemaCompiler = $schemaCompiler;
-        $this->schemaConfig = $schemaConfig;
     }
 
     protected function configure(): void
