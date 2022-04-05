@@ -1,10 +1,10 @@
 # Cycle ORM bridge
-This package provides a set of Symfony commands, classes for integration [Cycle ORM v1](https://cycle-orm.dev) with any framework.
-If you want to integrate this to Laravel we already has a [separated package](https://github.com/wakebit/laravel-cycle) which uses this bridge.
+This package provides a set of Symfony commands, classes for integration [Cycle ORM](https://cycle-orm.dev) with any framework. We are supporting integration both versions of the ORM.
+If you want to integrate this to Laravel we already have a [separated package](https://github.com/wakebit/laravel-cycle) which uses this bridge.
 
 ## Requirements
 * PHP >= 8.0
-* Cycle ORM 1.x
+* Cycle ORM 1 or 2 (branches `v1.x` and `v2.x` accordingly)
 
 ## Installation
 1. Install the package via composer:
@@ -212,7 +212,9 @@ return [
     GeneratorQueueInterface::class  => autowire(GeneratorQueue::class),
     CompilerInterface::class        => autowire(Compiler::class),
     SchemaInterface::class          => factory([SchemaFactory::class, 'create']),
-    ORMInterface::class             => autowire(ORM::class),
+    ORMInterface::class => static function (ContainerInterface $container): ORMInterface {
+        return new ORM($container->get(FactoryInterface::class), $container->get(SchemaInterface::class));
+    },
     EntityManagerInterface::class   => autowire(EntityManager::class),
     RepositoryInterface::class      => autowire(FileRepository::class),
 ];
@@ -231,22 +233,14 @@ namespace App\Entity;
 use Cycle\Annotated\Annotation\Entity;
 use Cycle\Annotated\Annotation\Column;
 
-/**
- * @Entity
- */
+#[Entity]
 class User
 {
-    /**
-     * @Column(type="primary")
-     * @var int
-     */
-    protected $id;
+    #[Column(type: 'primary')]
+    private int $id;
 
-    /**
-     * @Column(type="string")
-     * @var string
-     */
-    protected $name;
+    #[Column(type: 'string')]
+    private string $name;
 
     public function getId(): int
     {
@@ -265,7 +259,7 @@ class User
 }
 ```
 
-You can take DBAL, ORM and Transaction from the container. Quick example of usage:
+You can take DBAL, ORM and EntityManager from the container. Quick example of usage:
 
 ```php
 <?php
@@ -278,35 +272,20 @@ use Cycle\Database\DatabaseProviderInterface;
 use Cycle\ORM\EntityManagerInterface;
 use Cycle\ORM\ORMInterface;
 
-class SomeClass
+final class SomeClass
 {
-    /** @var DatabaseProviderInterface */
-    private $dbal;
-    
-    /** @var ORMInterface */
-    private $orm;
-    
-    /** @var EntityManagerInterface */
-    private $em;
-    
     public function __construct(
-        DatabaseProviderInterface $dbal,
-        ORMInterface $orm,
-        EntityManagerInterface $em
+        private DatabaseProviderInterface $dbal,
+        private EntityManagerInterface $em,
+        private ORMInterface $orm,
     ) {
-        $this->dbal = $dbal;
-        $this->orm = $orm;
-        $this->em = $em;
     }
     
     public function __invoke()
     {
         // DBAL
         $tables = $this->dbal->database()->getTables();
-        $tableNames = array_map(function (\Cycle\Database\TableInterface $table): string {
-            return $table->getName();
-        }, $tables);
-
+        $tableNames = array_map(fn (\Cycle\Database\TableInterface $table): string => $table->getName(), $tables);
         dump($tableNames);
         
         // Create, modify, delete entities using Transaction
@@ -357,6 +336,7 @@ If you are using memory database (SQLite) you can just run migrations in the `se
 For another databases follow [this instruction](https://cycle-orm.dev/docs/advanced-testing/1.x/en) and drop all tables in the `tearDown` method.
 
 ## Advanced
+### Manually defined ORM schema
 If you want to use a manually defined ORM schema you can define it in the `cycle.php` `orm.schema.map` config key:
 ```php
 use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
@@ -375,7 +355,8 @@ return [
 ```
 Manually defined schema should be presented as array. It will be passed to `\Cycle\ORM\Schema` constructor. See more [here](https://cycle-orm.dev/docs/advanced-manual/1.x/en).
 
-Also, you can redefine the ORM schema compilation generators in the `cycle.php` `orm.schema.generators` config key:
+### Custom schema compilation pipeline
+You can redefine the ORM schema compilation generators in the `cycle.php` `orm.schema.generators` config key:
 ```php
 use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
 
@@ -404,6 +385,17 @@ return [
 ]
 ```
 Classes will be resolved by DI container. Default pipeline you can see [here](https://github.com/wakebit/cycle-bridge/blob/v1.x/src/Schema/Config/SchemaConfig.php#L32).
+
+### Default collection factory
+You can specify predefined or your own collection factory in container definition:
+```php
+FactoryInterface::class => static function (ContainerInterface $container): FactoryInterface {
+    return new \Cycle\ORM\Factory(
+        dbal: $container->get(DatabaseProviderInterface::class),
+        defaultCollectionFactory: new \Cycle\ORM\Collection\DoctrineCollectionFactory(),
+    );
+},
+```
 
 # Credits
 - [Cycle ORM](https://github.com/cycle), PHP DataMapper ORM and Data Modelling Engine by SpiralScout.
