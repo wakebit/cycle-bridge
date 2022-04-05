@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Tests\Console\Command\Schema;
 
-use League\Flysystem\Adapter\Local;
 use Cycle\Database\DatabaseInterface;
+use League\Flysystem\Adapter\Local;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;

@@ -10,8 +10,8 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Console\Command\Migrate;
 
-use Spiral\Migrations\Config\MigrationConfig;
-use Spiral\Migrations\Migrator;
+use Cycle\Migrations\Config\MigrationConfig;
+use Cycle\Migrations\Migrator;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\QuestionHelper;
 use Symfony\Component\Console\Input\InputInterface;

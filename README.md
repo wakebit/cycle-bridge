@@ -39,8 +39,8 @@ return [
 <?php
 
 use Cycle\Database\Config\DatabaseConfig;
+use Cycle\Migrations\Config\MigrationConfig;
 use Psr\Container\ContainerInterface;
-use Spiral\Migrations\Config\MigrationConfig;
 use Spiral\Tokenizer\Config\TokenizerConfig;
 use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
 use function DI\create;
@@ -140,6 +140,9 @@ use Cycle\Database\Config\DatabaseConfig;
 use Cycle\Database\DatabaseInterface;
 use Cycle\Database\DatabaseManager;
 use Cycle\Database\DatabaseProviderInterface;
+use Cycle\Migrations\Config\MigrationConfig;
+use Cycle\Migrations\FileRepository;
+use Cycle\Migrations\RepositoryInterface;
 use Cycle\ORM\Factory;
 use Cycle\ORM\FactoryInterface;
 use Cycle\ORM\ORM;
@@ -148,9 +151,6 @@ use Cycle\ORM\SchemaInterface;
 use Cycle\ORM\Transaction;
 use Cycle\ORM\TransactionInterface;
 use Psr\Container\ContainerInterface;
-use Spiral\Migrations\Config\MigrationConfig;
-use Spiral\Migrations\FileRepository;
-use Spiral\Migrations\RepositoryInterface;
 use Spiral\Tokenizer\ClassesInterface;
 use Spiral\Tokenizer\ClassLocator;
 use Spiral\Tokenizer\Config\TokenizerConfig;

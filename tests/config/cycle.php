@@ -1,8 +1,8 @@
 <?php
 
 use Cycle\Database\Config\DatabaseConfig;
+use Cycle\Migrations\Config\MigrationConfig;
 use Psr\Container\ContainerInterface;
-use Spiral\Migrations\Config\MigrationConfig;
 use Spiral\Tokenizer\Config\TokenizerConfig;
 use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
 use function DI\create;

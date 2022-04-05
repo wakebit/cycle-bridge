@@ -10,7 +10,7 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Console\Command\Migrate;
 
-use Spiral\Migrations\State;
+use Cycle\Migrations\State;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;

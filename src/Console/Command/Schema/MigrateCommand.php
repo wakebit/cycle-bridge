@@ -10,10 +10,10 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Console\Command\Schema;
 
-use Cycle\Migrations\GenerateMigrations;
+use Cycle\Migrations\Migrator;
+use Cycle\Migrations\State;
+use Cycle\Schema\Generator\Migrations\GenerateMigrations;
 use Psr\Container\ContainerInterface;
-use Spiral\Migrations\Migrator;
-use Spiral\Migrations\State;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\ArrayInput;
 use Symfony\Component\Console\Input\InputInterface;

@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace Wakebit\CycleBridge\Tests;
 
 use Arrayy\Arrayy;
-use Spiral\Migrations\Config\MigrationConfig;
+use Cycle\Migrations\Config\MigrationConfig;
 use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
 
 /**
