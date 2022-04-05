@@ -9,13 +9,13 @@ use Cycle\Database\DatabaseProviderInterface;
 use Cycle\Migrations\Config\MigrationConfig;
 use Cycle\Migrations\FileRepository;
 use Cycle\Migrations\RepositoryInterface;
+use Cycle\ORM\EntityManager;
+use Cycle\ORM\EntityManagerInterface;
 use Cycle\ORM\Factory;
 use Cycle\ORM\FactoryInterface;
 use Cycle\ORM\ORM;
 use Cycle\ORM\ORMInterface;
 use Cycle\ORM\SchemaInterface;
-use Cycle\ORM\Transaction;
-use Cycle\ORM\TransactionInterface;
 use Psr\Container\ContainerInterface;
 use Spiral\Tokenizer\ClassesInterface;
 use Spiral\Tokenizer\ClassLocator;
@@ -29,6 +29,7 @@ use Wakebit\CycleBridge\Schema\Compiler;
 use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
 use Wakebit\CycleBridge\Schema\GeneratorQueue;
 use Wakebit\CycleBridge\Schema\SchemaFactory;
+
 use function DI\autowire;
 use function DI\factory;
 use function DI\get;
@@ -84,6 +85,6 @@ return [
     CompilerInterface::class        => autowire(Compiler::class),
     SchemaInterface::class          => factory([SchemaFactory::class, 'create']),
     ORMInterface::class             => autowire(ORM::class),
-    TransactionInterface::class     => autowire(Transaction::class),
+    EntityManagerInterface::class   => autowire(EntityManager::class),
     RepositoryInterface::class      => autowire(FileRepository::class),
 ];

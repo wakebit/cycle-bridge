@@ -143,13 +143,13 @@ use Cycle\Database\DatabaseProviderInterface;
 use Cycle\Migrations\Config\MigrationConfig;
 use Cycle\Migrations\FileRepository;
 use Cycle\Migrations\RepositoryInterface;
+use Cycle\ORM\EntityManager;
+use Cycle\ORM\EntityManagerInterface;
 use Cycle\ORM\Factory;
 use Cycle\ORM\FactoryInterface;
 use Cycle\ORM\ORM;
 use Cycle\ORM\ORMInterface;
 use Cycle\ORM\SchemaInterface;
-use Cycle\ORM\Transaction;
-use Cycle\ORM\TransactionInterface;
 use Psr\Container\ContainerInterface;
 use Spiral\Tokenizer\ClassesInterface;
 use Spiral\Tokenizer\ClassLocator;
@@ -213,7 +213,7 @@ return [
     CompilerInterface::class        => autowire(Compiler::class),
     SchemaInterface::class          => factory([SchemaFactory::class, 'create']),
     ORMInterface::class             => autowire(ORM::class),
-    TransactionInterface::class     => autowire(Transaction::class),
+    EntityManagerInterface::class   => autowire(EntityManager::class),
     RepositoryInterface::class      => autowire(FileRepository::class),
 ];
 ```
@@ -275,8 +275,8 @@ declare(strict_types=1);
 namespace App;
 
 use Cycle\Database\DatabaseProviderInterface;
+use Cycle\ORM\EntityManagerInterface;
 use Cycle\ORM\ORMInterface;
-use Cycle\ORM\TransactionInterface;
 
 class SomeClass
 {
@@ -286,17 +286,17 @@ class SomeClass
     /** @var ORMInterface */
     private $orm;
     
-    /** @var TransactionInterface */
-    private $transaction;
+    /** @var EntityManagerInterface */
+    private $em;
     
     public function __construct(
         DatabaseProviderInterface $dbal,
         ORMInterface $orm,
-        TransactionInterface $transaction
+        EntityManagerInterface $em
     ) {
         $this->dbal = $dbal;
         $this->orm = $orm;
-        $this->transaction = $transaction;
+        $this->em = $em;
     }
     
     public function __invoke()
@@ -312,8 +312,8 @@ class SomeClass
         // Create, modify, delete entities using Transaction
         $user = new \App\Entity\User();
         $user->setName("Hello World");
-        $this->transaction->persist($user);
-        $this->transaction->run();
+        $this->em->persist($user);
+        $this->em->run();
         dump($user);
         
         // ORM
