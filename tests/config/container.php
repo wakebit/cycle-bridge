@@ -29,7 +29,6 @@ use Wakebit\CycleBridge\Schema\Compiler;
 use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
 use Wakebit\CycleBridge\Schema\GeneratorQueue;
 use Wakebit\CycleBridge\Schema\SchemaFactory;
-
 use function DI\autowire;
 use function DI\factory;
 use function DI\get;
