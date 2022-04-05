@@ -8,24 +8,17 @@ use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 
 /**
- * @Entity
- *
  * @psalm-suppress MissingConstructor
  */
+#[Entity]
 final class Article
 {
-    /**
-     * @Column(type="primary")
-     */
+    #[Column(type: 'primary')]
     private int $id;
 
-    /**
-     * @Column(type="string")
-     */
+    #[Column(type: 'string')]
     private string $title;
 
-    /**
-     * @Column(type="string")
-     */
+    #[Column(type: 'string')]
     private string $description;
 }

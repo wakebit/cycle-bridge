@@ -8,19 +8,14 @@ use Cycle\Annotated\Annotation\Column;
 use Cycle\Annotated\Annotation\Entity;
 
 /**
- * @Entity
- *
  * @psalm-suppress MissingConstructor
  */
+#[Entity]
 final class Customer
 {
-    /**
-     * @Column(type="primary")
-     */
+    #[Column(type: 'primary')]
     private int $id;
 
-    /**
-     * @Column(type="string")
-     */
+    #[Column(type: 'string')]
     private string $name;
 }
