@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Tests\Console\Command\Schema;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Schema\ClearCommand;
 use Wakebit\CycleBridge\Contracts\Schema\CacheManagerInterface;
@@ -20,7 +21,7 @@ final class ClearCommandTest extends TestCase
         $commandTester = new CommandTester($this->container->get(ClearCommand::class));
         $exitCode = $commandTester->execute([]);
         $output = $commandTester->getDisplay();
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertStringContainsString('ORM schema cache cleared!', $output);
     }
 }

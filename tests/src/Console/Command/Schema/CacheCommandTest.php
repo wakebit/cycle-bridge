@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Wakebit\CycleBridge\Tests\Console\Command\Schema;
 
 use Cycle\ORM\SchemaInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Schema\CacheCommand;
 use Wakebit\CycleBridge\Contracts\Schema\CacheManagerInterface;
@@ -35,7 +36,7 @@ final class CacheCommandTest extends TestCase
         $commandTester = new CommandTester($this->container->get(CacheCommand::class));
         $exitCode = $commandTester->execute([]);
         $output = $commandTester->getDisplay();
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertStringContainsString('ORM schema cached successfully!', $output);
 
         $outputSchema = $this->container->get(SchemaInterface::class);
@@ -48,7 +49,7 @@ final class CacheCommandTest extends TestCase
         $commandTester = new CommandTester($this->container->get(CacheCommand::class));
         $exitCode = $commandTester->execute([]);
         $output = $commandTester->getDisplay();
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertStringContainsString('ORM schema cached successfully!', $output);
 
         $schema = $this->container->get(SchemaInterface::class);
@@ -68,7 +69,7 @@ final class CacheCommandTest extends TestCase
         $commandTester = new CommandTester($this->container->get(CacheCommand::class));
         $exitCode = $commandTester->execute([]);
         $output = $commandTester->getDisplay();
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertStringContainsString('ORM schema cached successfully!', $output);
 
         $schema = $this->container->get(SchemaInterface::class);

@@ -8,6 +8,7 @@ use League\Flysystem\Adapter\Local;
 use League\Flysystem\FileNotFoundException;
 use Spiral\Database\DatabaseInterface;
 use Spiral\Migrations\Config\MigrationConfig;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Migrate\MigrateCommand as DatabaseMigrateCommand;
@@ -76,7 +77,7 @@ final class MigrateCommandTest extends TestCase
         $exitCode = $commandTester->execute([]);
         $output = $commandTester->getDisplay();
 
-        $this->assertSame(1, $exitCode);
+        $this->assertSame(Command::FAILURE, $exitCode);
         $this->assertStringContainsString('Outstanding migrations found, run `cycle:migrate` first.', $output);
         $this->assertNoChangesInMigrationFiles();
     }
@@ -99,7 +100,7 @@ final class MigrateCommandTest extends TestCase
             '- add column id',
         ];
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertHasChangesInMigrationFiles();
         $this->assertFalse($this->db->table('tags')->exists());
@@ -123,7 +124,7 @@ final class MigrateCommandTest extends TestCase
             '- add column id',
         ];
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertHasChangesInMigrationFiles();
         $this->assertTrue($this->db->table('tags')->exists());
@@ -211,6 +212,6 @@ PHP;
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([]);
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
     }
 }

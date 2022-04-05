@@ -59,7 +59,7 @@ final class MigrateCommand extends Command
             if ($migration->getState()->getStatus() !== State::STATUS_EXECUTED) {
                 $output->writeln('<fg=red>Outstanding migrations found, run `cycle:migrate` first.</fg=red>');
 
-                return 1;
+                return self::FAILURE;
             }
         }
 
@@ -83,6 +83,6 @@ final class MigrateCommand extends Command
             }
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

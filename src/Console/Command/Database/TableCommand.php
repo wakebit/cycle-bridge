@@ -98,7 +98,7 @@ final class TableCommand extends Command
 
         $this->output->write("\n");
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     protected function describeColumns(AbstractTable $schema): void

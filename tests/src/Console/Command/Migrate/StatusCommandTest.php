@@ -6,6 +6,7 @@ namespace Wakebit\CycleBridge\Tests\Console\Command\Migrate;
 
 use Spiral\Database\DatabaseInterface;
 use Spiral\Migrations\Config\MigrationConfig;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Migrate\MigrateCommand;
 use Wakebit\CycleBridge\Console\Command\Migrate\RollbackCommand;
@@ -39,7 +40,7 @@ final class StatusCommandTest extends TestCase
             '0_default_create_customers',                '2022-02-10 16:04:52', 'not executed yet',
         ];
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertOnlyMigrationsTableIsPresent();
     }
@@ -52,7 +53,7 @@ final class StatusCommandTest extends TestCase
         $exitCode = $commandTester->execute([]);
         $realOutput = $commandTester->getDisplay();
 
-        $this->assertSame(1, $exitCode);
+        $this->assertSame(Command::FAILURE, $exitCode);
         $this->assertStringContainsString('No migrations were found.', $realOutput);
     }
 
@@ -72,7 +73,7 @@ final class StatusCommandTest extends TestCase
             '0_default_create_customers',                '2022-02-10 16:04:52', 'not executed yet',
         ];
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
     }
 
@@ -80,12 +81,12 @@ final class StatusCommandTest extends TestCase
     {
         $commandTester = new CommandTester($this->container->get(MigrateCommand::class));
         $exitCode = $commandTester->execute([]);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertAllTablesArePresent();
 
         $commandTester = new CommandTester($this->container->get(RollbackCommand::class));
         $exitCode = $commandTester->execute([]);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertAllTablesExceptLatestArePresent();
     }
 

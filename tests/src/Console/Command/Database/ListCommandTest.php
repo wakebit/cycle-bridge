@@ -14,6 +14,7 @@ use Spiral\Database\Database;
 use Spiral\Database\DatabaseInterface;
 use Spiral\Database\DatabaseManager;
 use Spiral\Database\DatabaseProviderInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Database\ListCommand;
 use Wakebit\CycleBridge\Tests\Constraints\SeeInOrder;
@@ -40,7 +41,7 @@ final class ListCommandTest extends TestCase
 
         $commandTester = new CommandTester($this->container->get(ListCommand::class));
         $exitCode = $commandTester->execute([]);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
 
         $realOutput = $commandTester->getDisplay();
         $expectedOutput = [
@@ -66,7 +67,7 @@ final class ListCommandTest extends TestCase
 
         $commandTester = new CommandTester($this->container->get(ListCommand::class));
         $exitCode = $commandTester->execute(['database' => 'sqlite']);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
 
         $realOutput = $commandTester->getDisplay();
         $expectedOutput = [

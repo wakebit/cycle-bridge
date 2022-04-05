@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Console\Command\Migrate;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 
@@ -30,6 +31,6 @@ final class InitCommand extends AbstractCommand
         $this->migrator->configure();
         $this->output->writeln('<info>Migrations table were successfully created.</info>');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

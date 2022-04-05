@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace Wakebit\CycleBridge\Tests\Console\Command\Migrate;
 
 use Spiral\Database\DatabaseManager;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Migrate\InitCommand;
 use Wakebit\CycleBridge\Tests\TestCase;
@@ -20,7 +21,7 @@ final class InitCommandTest extends TestCase
         $commandTester = new CommandTester($this->container->get(InitCommand::class));
         $exitCode = $commandTester->execute([]);
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $output = $commandTester->getDisplay();
         $this->assertStringContainsString('Migrations table were successfully created.', $output);
 

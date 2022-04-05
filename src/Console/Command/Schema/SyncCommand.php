@@ -46,6 +46,6 @@ final class SyncCommand extends Command
             $output->writeln("\n<info>ORM Schema has been synchronized.</info>");
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

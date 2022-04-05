@@ -46,6 +46,6 @@ final class CacheCommand extends Command
 
         $output->writeln('<info>ORM schema cached successfully!</info>');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

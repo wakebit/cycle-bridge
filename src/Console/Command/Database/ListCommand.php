@@ -54,7 +54,7 @@ final class ListCommand extends Command
         if (empty($databases)) {
             $output->writeln('<fg=red>No databases found.</fg=red>');
 
-            return 0;
+            return Command::SUCCESS;
         }
 
         $grid = (new Table($output))
@@ -104,7 +104,7 @@ final class ListCommand extends Command
 
         $grid->render();
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     private function renderException(Table $grid, array $header, \Throwable $exception): void

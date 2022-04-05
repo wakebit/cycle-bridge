@@ -10,6 +10,7 @@ declare(strict_types=1);
 
 namespace Wakebit\CycleBridge\Console\Command\Migrate;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -31,7 +32,7 @@ final class MigrateCommand extends AbstractCommand
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         if (!$this->verifyEnvironment()) {
-            return 1;
+            return self::FAILURE;
         }
 
         $this->migrator->configure();
@@ -56,6 +57,6 @@ final class MigrateCommand extends AbstractCommand
             $this->output->writeln('<fg=red>No outstanding migrations were found.</fg=red>');
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

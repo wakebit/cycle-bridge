@@ -6,6 +6,7 @@ namespace Wakebit\CycleBridge\Tests\Console\Command\Migrate;
 
 use Spiral\Database\DatabaseInterface;
 use Spiral\Migrations\Config\MigrationConfig;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Migrate\InitCommand;
 use Wakebit\CycleBridge\Console\Command\Migrate\MigrateCommand;
@@ -39,7 +40,7 @@ final class MigrateCommandTest extends TestCase
             'Cancelling operation...',
         ];
 
-        $this->assertSame(1, $exitCode);
+        $this->assertSame(Command::FAILURE, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertStringNotContainsString('executed', $realOutput);
         $this->assertNoTablesArePresent();
@@ -63,7 +64,7 @@ final class MigrateCommandTest extends TestCase
             'Migration 0_default_create_customers was successfully executed.',
         ];
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertStringNotContainsString('Cancelling operation...', $realOutput);
         $this->assertAllTablesArePresent();
@@ -83,7 +84,7 @@ final class MigrateCommandTest extends TestCase
             'Migration 0_default_create_customers was successfully executed.',
         ];
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertStringNotContainsString('Confirmation is required to run migrations!', $realOutput);
         $this->assertStringNotContainsString('Would you like to continue?', $realOutput);
@@ -101,7 +102,7 @@ final class MigrateCommandTest extends TestCase
             'Migration 0_default_create_articles was successfully executed.',
         ];
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertStringNotContainsString('0_default_change_articles_add_description', $realOutput);
         $this->assertStringNotContainsString('0_default_create_customers', $realOutput);
@@ -122,13 +123,13 @@ final class MigrateCommandTest extends TestCase
         $command = $this->container->get(MigrateCommand::class);
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([]);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertAllTablesArePresent();
 
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([]);
         $realOutput = $commandTester->getDisplay();
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertAllTablesArePresent();
         $this->assertStringContainsString('No outstanding migrations were found.', $realOutput);
     }
@@ -137,12 +138,12 @@ final class MigrateCommandTest extends TestCase
     {
         $commandTester = new CommandTester($this->container->get(InitCommand::class));
         $exitCode = $commandTester->execute([]);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertOnlyMigrationsTableIsPresent();
 
         $commandTester = new CommandTester($this->container->get(MigrateCommand::class));
         $exitCode = $commandTester->execute([]);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertAllTablesArePresent();
     }
 
@@ -152,7 +153,7 @@ final class MigrateCommandTest extends TestCase
 
         $commandTester = new CommandTester($this->container->get(MigrateCommand::class));
         $exitCode = $commandTester->execute([]);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertAllTablesArePresent();
     }
 

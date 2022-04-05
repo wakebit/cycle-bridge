@@ -6,6 +6,7 @@ namespace Wakebit\CycleBridge\Tests\Console\Command\Migrate;
 
 use Spiral\Database\DatabaseInterface;
 use Spiral\Migrations\Config\MigrationConfig;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Migrate\InitCommand;
 use Wakebit\CycleBridge\Console\Command\Migrate\MigrateCommand;
@@ -40,7 +41,7 @@ final class RollbackCommandTest extends TestCase
             'Cancelling operation...',
         ];
 
-        $this->assertSame(1, $exitCode);
+        $this->assertSame(Command::FAILURE, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertStringNotContainsString('rolled back', $realOutput);
         $this->assertAllTablesArePresent();
@@ -62,7 +63,7 @@ final class RollbackCommandTest extends TestCase
             'Migration 0_default_create_customers was successfully rolled back.',
         ];
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertStringNotContainsString('Cancelling operation...', $realOutput);
         $this->assertAllTablesExceptLatestArePresent();
@@ -77,7 +78,7 @@ final class RollbackCommandTest extends TestCase
         $exitCode = $commandTester->execute(['--force' => true]);
         $realOutput = $commandTester->getDisplay();
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertStringContainsString('Migration 0_default_create_customers was successfully rolled back.', $realOutput);
         $this->assertAllTablesExceptLatestArePresent();
     }
@@ -96,7 +97,7 @@ final class RollbackCommandTest extends TestCase
             'Migration 0_default_create_articles was successfully rolled back.',
         ];
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertOnlyMigrationsTableIsPresent();
     }
@@ -109,7 +110,7 @@ final class RollbackCommandTest extends TestCase
         $exitCode = $commandTester->execute([]);
         $realOutput = $commandTester->getDisplay();
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertStringContainsString('No executed migrations were found.', $realOutput);
         $this->assertOnlyMigrationsTableIsPresent();
     }
@@ -118,12 +119,12 @@ final class RollbackCommandTest extends TestCase
     {
         $commandTester = new CommandTester($this->container->get(InitCommand::class));
         $exitCode = $commandTester->execute([]);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertOnlyMigrationsTableIsPresent();
 
         $commandTester = new CommandTester($this->container->get(RollbackCommand::class));
         $exitCode = $commandTester->execute([]);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertOnlyMigrationsTableIsPresent();
     }
 
@@ -134,7 +135,7 @@ final class RollbackCommandTest extends TestCase
         $commandTester = new CommandTester($this->container->get(RollbackCommand::class));
         $exitCode = $commandTester->execute([]);
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertOnlyMigrationsTableIsPresent();
     }
 
@@ -143,7 +144,7 @@ final class RollbackCommandTest extends TestCase
         $commandTester = new CommandTester($this->container->get(MigrateCommand::class));
         $exitCode = $commandTester->execute(['--force' => true]);
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertAllTablesArePresent();
     }
 

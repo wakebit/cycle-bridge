@@ -31,6 +31,6 @@ final class ClearCommand extends Command
         $this->cacheManager->clear();
         $output->writeln('<info>ORM schema cache cleared!</info>');
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

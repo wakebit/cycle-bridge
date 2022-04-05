@@ -6,6 +6,7 @@ namespace Wakebit\CycleBridge\Tests\Console\Command\Schema;
 
 use League\Flysystem\Adapter\Local;
 use Spiral\Database\DatabaseInterface;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Migrate\MigrateCommand as DatabaseMigrateCommand;
@@ -64,7 +65,7 @@ final class SyncCommandTest extends TestCase
             'ORM Schema has been synchronized.',
         ];
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
         $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
         $this->assertNoChangesInMigrationFiles();
         $this->assertTrue($this->db->table('tags')->exists());
@@ -118,6 +119,6 @@ PHP;
         $commandTester = new CommandTester($command);
         $exitCode = $commandTester->execute([]);
 
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
     }
 }

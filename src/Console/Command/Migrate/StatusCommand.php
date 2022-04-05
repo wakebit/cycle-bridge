@@ -11,6 +11,7 @@ declare(strict_types=1);
 namespace Wakebit\CycleBridge\Console\Command\Migrate;
 
 use Spiral\Migrations\State;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Helper\Table;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
@@ -40,7 +41,7 @@ final class StatusCommand extends AbstractCommand
         if (empty($migrations)) {
             $this->output->writeln('<comment>No migrations were found.</comment>');
 
-            return 1;
+            return self::FAILURE;
         }
 
         $table = (new Table($output))->setHeaders(['Migration', 'Created at', 'Executed at']);
@@ -67,6 +68,6 @@ final class StatusCommand extends AbstractCommand
 
         $table->render();
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

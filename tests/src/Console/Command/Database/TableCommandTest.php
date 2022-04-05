@@ -13,6 +13,7 @@ namespace Wakebit\CycleBridge\Tests\Console\Command\Database;
 use Spiral\Database\Database;
 use Spiral\Database\DatabaseInterface;
 use Spiral\Database\Exception\DBALException;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Tester\CommandTester;
 use Wakebit\CycleBridge\Console\Command\Database\TableCommand;
 use Wakebit\CycleBridge\Tests\Constraints\SeeInOrder;
@@ -63,7 +64,7 @@ final class TableCommandTest extends TestCase
 
         $commandTester = new CommandTester($this->container->get(TableCommand::class));
         $exitCode = $commandTester->execute(['--database' => 'default', 'table' => 'sample']);
-        $this->assertSame(0, $exitCode);
+        $this->assertSame(Command::SUCCESS, $exitCode);
 
         $realOutput = $commandTester->getDisplay();
         $expectedOutput = [
