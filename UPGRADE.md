@@ -107,4 +107,10 @@ Now it looks so:
 ];
 ```
 
+### New commands
+- `cycle:schema:render` - Render available schemas.
+- `cycle:migrate:replay` - Replay (down, up) one or multiple migrations.
+
+See [readme](README.md#console-commands) for more info.
+
 Also, it may be useful to read the Cycle ORM v2 [upgrading guide](https://cycle-orm.dev/docs/intro-upgrade/2.x/en).
