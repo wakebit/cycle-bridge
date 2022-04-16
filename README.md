@@ -315,6 +315,7 @@ See more on [the official Cycle ORM documentation](https://cycle-orm.dev/docs/re
 | `cycle:schema:cache`   | Compile and cache ORM schema                                                   |                                                                              | `\Wakebit\CycleBridge\Console\Command\Schema\CacheCommand::class`   |
 | `cycle:schema:clear`   | Clear cached schema (schema will be generated every request now)               |                                                                              | `\Wakebit\CycleBridge\Console\Command\Schema\ClearCommand::class`   |
 | `cycle:schema:sync`    | Sync ORM schema with database without intermediate migration (risk operation!) |                                                                              | `\Wakebit\CycleBridge\Console\Command\Schema\SyncCommand::class`    |
+| `cycle:schema:render`  | Render available CycleORM schemas.                                             | - `--no-color`: Display output without colors.                               | `\Wakebit\CycleBridge\Console\Command\Schema\RenderCommand::class`  |
 
 
 ### Database migrations
