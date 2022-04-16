@@ -324,6 +324,7 @@ See more on [the official Cycle ORM documentation](https://cycle-orm.dev/docs/re
 | `cycle:migrate:init`     | Initialize migrator: create a table for migrations |                                                                                                               | `\Wakebit\CycleBridge\Console\Command\Migrate\InitCommand::class`     |
 | `cycle:migrate`          | Run all outstanding migrations                     | - `--one`: Execute only one (first) migration.<br>- `--force`: Force the operation to run when in production. | `\Wakebit\CycleBridge\Console\Command\Migrate\MigrateCommand::class`  |
 | `cycle:migrate:rollback` | Rollback the last migration                        | - `--all`: Rollback all executed migrations.<br>- `--force`: Force the operation to run when in production.   | `\Wakebit\CycleBridge\Console\Command\Migrate\RollbackCommand::class` |
+| `cycle:migrate:replay`   | Replay (down, up) one or multiple migrations.      | - `--all`: Replay all migrations.                                                                             | `\Wakebit\CycleBridge\Console\Command\Migrate\ReplayCommand::class`   |
 | `cycle:migrate:status`   | Get a list of available migrations                 |                                                                                                               | `\Wakebit\CycleBridge\Console\Command\Migrate\StatusCommand::class`   |
 
 ### Database commands
