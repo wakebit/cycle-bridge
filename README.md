@@ -9,7 +9,7 @@ If you want to integrate this to Laravel we already has a [separated package](ht
 ## Installation
 1. Install the package via composer:
 ```bash
-composer require wakebit/cycle-bridge
+composer require wakebit/cycle-bridge:1.0
 ```
 
 ## Example of usage with PHP-DI
