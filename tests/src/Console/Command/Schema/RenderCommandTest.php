@@ -22,15 +22,7 @@ final class RenderCommandTest extends TestCase
         $commandTester = new CommandTester($this->container->get(RenderCommand::class));
         $exitCode = $commandTester->execute(['-nc' => true], ['verbosity' => OutputInterface::VERBOSITY_VERBOSE]);
         $realOutput = $commandTester->getDisplay();
-        $expectedOutput = [
-            '[customer] :: default.customers',
-            'Entity:', Customer::class,
-            'Mapper:', Mapper::class,
-            'Repository:', Repository::class,
-            'Primary key:', 'id',
-            'Fields', '(property -> db.field -> typecast)', 'id -> id -> int', 'name -> name',
-            'Relations:', 'not defined',
-
+        $articlesOutput = [
             '[article] :: default.articles',
             'Entity:', Article::class,
             'Mapper:', Mapper::class,
@@ -40,7 +32,18 @@ final class RenderCommandTest extends TestCase
             'Relations:', 'not defined',
         ];
 
+        $customersOutput = [
+            '[customer] :: default.customers',
+            'Entity:', Customer::class,
+            'Mapper:', Mapper::class,
+            'Repository:', Repository::class,
+            'Primary key:', 'id',
+            'Fields', '(property -> db.field -> typecast)', 'id -> id -> int', 'name -> name',
+            'Relations:', 'not defined',
+        ];
+
         $this->assertSame(Command::SUCCESS, $exitCode);
-        $this->assertThat($expectedOutput, new SeeInOrder($realOutput));
+        $this->assertThat($articlesOutput, new SeeInOrder($realOutput));
+        $this->assertThat($customersOutput, new SeeInOrder($realOutput));
     }
 }
