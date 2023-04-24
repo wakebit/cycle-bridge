@@ -5,6 +5,7 @@ use Cycle\Migrations\Config\MigrationConfig;
 use Psr\Container\ContainerInterface;
 use Spiral\Tokenizer\Config\TokenizerConfig;
 use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
+
 use function DI\create;
 
 /**

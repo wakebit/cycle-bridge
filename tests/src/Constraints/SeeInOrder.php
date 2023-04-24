@@ -7,9 +7,6 @@ declare(strict_types=1);
 namespace Wakebit\CycleBridge\Tests\Constraints;
 
 use PHPUnit\Framework\Constraint\Constraint;
-use ReflectionClass;
-use function mb_strlen;
-use function mb_strpos;
 
 final class SeeInOrder extends Constraint
 {
@@ -42,7 +39,7 @@ final class SeeInOrder extends Constraint
                 continue;
             }
 
-            $valuePosition = mb_strpos($this->content, $value, $position);
+            $valuePosition = \mb_strpos($this->content, $value, $position);
 
             if ($valuePosition === false || $valuePosition < $position) {
                 $this->failedValue = $value;
@@ -50,7 +47,7 @@ final class SeeInOrder extends Constraint
                 return false;
             }
 
-            $position = $valuePosition + mb_strlen($value);
+            $position = $valuePosition + \mb_strlen($value);
         }
 
         return true;
@@ -75,6 +72,6 @@ final class SeeInOrder extends Constraint
      */
     public function toString(): string
     {
-        return (new ReflectionClass($this))->name;
+        return (new \ReflectionClass($this))->name;
     }
 }
