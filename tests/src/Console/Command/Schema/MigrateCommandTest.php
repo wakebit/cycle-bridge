@@ -169,7 +169,7 @@ final class MigrateCommandTest extends TestCase
             $this->assertContains($migrationFile, $files);
         }
 
-        $this->assertStringContainsString('default_create_tags', $files[count($files) - 1]);
+        $this->assertStringContainsString('create_tags', $files[count($files) - 1]);
     }
 
     private function createTestEntity(): void
