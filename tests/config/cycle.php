@@ -5,6 +5,7 @@ use Spiral\Database\Config\DatabaseConfig;
 use Spiral\Migrations\Config\MigrationConfig;
 use Spiral\Tokenizer\Config\TokenizerConfig;
 use Wakebit\CycleBridge\Schema\Config\SchemaConfig;
+
 use function DI\create;
 
 /**

@@ -42,18 +42,21 @@ final class TableCommand extends Command
 
     /**
      * @var InputInterface
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $input;
 
     /**
      * @var OutputInterface
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $output;
 
     /**
      * @var string
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     private $tableName;

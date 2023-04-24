@@ -22,6 +22,7 @@ class TestCase extends \PHPUnit\Framework\TestCase
 
         /**
          * @var array $definitions
+         *
          * @psalm-suppress MissingFile
          */
         $definitions = require __DIR__ . '/../config/container.php';

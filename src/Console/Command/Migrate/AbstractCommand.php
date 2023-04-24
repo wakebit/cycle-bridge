@@ -29,12 +29,14 @@ abstract class AbstractCommand extends Command
 
     /**
      * @var InputInterface
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     protected $input;
 
     /**
      * @var OutputInterface
+     *
      * @psalm-suppress PropertyNotSetInConstructor
      */
     protected $output;
