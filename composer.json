@@ -15,7 +15,7 @@
         }
     },
     "require": {
-        "php": "^8.0|^8.1",
+        "php": "^8.0|^8.1|^8.2",
         "cycle/annotated": "^3.0",
         "cycle/database": "^2.0",
         "cycle/migrations": "^3.0",
